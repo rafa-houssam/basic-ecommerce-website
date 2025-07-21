@@ -4,13 +4,15 @@ import { products } from '../ProductData'
 
 
 const Products = () => {
-  return (
-    <>
-    <div>Products</div>
-    <ProductsList Products={products}/>
-    </>
-    
-  )
+    return (
+        <>
+         
+                <ProductsList Products={products} />
+            
+
+        </>
+
+    )
 }
 
 export default Products
