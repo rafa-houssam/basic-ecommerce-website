@@ -8,7 +8,7 @@ export default function ProductsList({Products}:{Products:Product[]}){
         <div>
         {Products.map(product => (
             <div key={product.id}>
-           <ProductDetails product={product} width={150} height={150}/>
+           <ProductDetails product={product} width={150} height={150} descr={false}/>
             </div>
         ))}
         </div>

@@ -12,7 +12,7 @@ const ProductPage = ({params}:{params:{id:string}}) => {
     
     <div>ProductDetails </div>
     {product && (
-     <ProductDetails product={product} height={250} width={250}/>
+     <ProductDetails product={product} height={250} width={250} descr={true}/>
     )}
 </>
 
