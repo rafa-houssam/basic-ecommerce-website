@@ -15,11 +15,11 @@ const carts:ShoppingCart={
 export async function GET(request:NextRequest,{params}:{params:Params}){
     const userId=params.id
     const productIds=carts[userId]
+    if(productIds==undefined){
+        return NextResponse.json({"no products":[]},{status:200})
+    }
     const userProducts=productIds.map(id=>products.find(p=>p.id==id))
     return NextResponse.json({userProducts},{status:200})
-
-    
-
 
 
 }
