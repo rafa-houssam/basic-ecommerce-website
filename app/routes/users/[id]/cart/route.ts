@@ -23,3 +23,22 @@ export async function GET(request:NextRequest,{params}:{params:Params}){
 
 
 }
+type CartBody={
+    productId:string
+}
+export async function POST(request:NextRequest,{params}:{params:Params}){
+    const userId=params.id
+    const cartBody:CartBody= await request.json()
+    const productId=cartBody.productId
+    carts[userId]=carts[userId]?carts[userId].concat(productId):[productId]
+    const userProducts=carts[userId].map(id=>products.find(p=>p.id==id))
+    return NextResponse.json({"data":userProducts},{status:201})
+}
+export async function DELETE(request:NextRequest,{params}:{params:Params}){
+    const userId=params.id
+    const cartBody:CartBody= await request.json()
+    const productId=cartBody.productId
+    carts[userId]=carts[userId]?carts[userId].filter(id=>id!=productId):[]
+    const userProducts=carts[userId].map(id=>products.find(p=>p.id==id))
+    return NextResponse.json({"data":userProducts},{status:201})
+}
