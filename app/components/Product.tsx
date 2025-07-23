@@ -58,7 +58,10 @@ const ProductDetails = ({ product, width, height, initialCartState = [], descr,p
                         <p className=''>{product.description}</p></>
                 )}
             </Link>
-                <button className='bg-blue-400 hover:cursor-pointer' onClick={() => addTocart(product.id)}>add to cart</button>
+            {page!= 'cart' && (
+                 <button className='bg-blue-400 hover:cursor-pointer' onClick={(e) => {e.preventDefault();addTocart(product.id)}}>add to cart</button>
+            )}
+               
                 {page=='cart' && (
                     <button className='bg-red-500 hover:cursor-pointer ml-10'  onClick={()=>removeFromcart(product.id)}>remove from card</button>
 
