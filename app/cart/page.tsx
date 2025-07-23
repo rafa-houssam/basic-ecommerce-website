@@ -8,7 +8,7 @@ import ShoppingCart from './ShoppingCart'
      const cartProducts=await response.json()
   return (
     <>
-      <ShoppingCart initialState={cartProducts.data}/>
+      <ShoppingCart initialState={cartProducts.data} page='cart'/>
 
     </>
   )

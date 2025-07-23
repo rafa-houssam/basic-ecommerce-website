@@ -5,15 +5,28 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 
-const ProductDetails = ({ product, width, height, initialCartState = [], descr }: { product: Product, width: number, height: number, descr: boolean, initialCartState?: Product[] }) => {
+const ProductDetails = ({ product, width, height, initialCartState = [], descr,page="" }: { product: Product, width: number, height: number, descr: boolean, initialCartState?: Product[],page?:string }) => {
     const [cartProduct, setcartProducts] = useState(initialCartState)
 
     async function addTocart(productId: string) {
-        const response = await fetch("http://localhost:3000/users/1/cart", {
+        const response = await fetch("http://localhost:3000/routes/users/1/cart", {
             method: "POST",
-            body:
-                JSON.stringify({ productId }),
-            headers: { 'Content-Type': 'application/json' }
+            body: JSON.stringify({ productId }),
+            headers: { 'Content-Type': 'application/json', }
+
+
+        })
+        let newCart = await response.json()
+        newCart = newCart.data
+        setcartProducts(newCart)
+
+
+    }
+    async function removeFromcart(productId: string) {
+        const response = await fetch("http://localhost:3000/routes/users/1/cart", {
+            method: "DELETE",
+            body: JSON.stringify({ productId }),
+            headers: { 'Content-Type': 'application/json', }
 
 
         })
@@ -46,6 +59,10 @@ const ProductDetails = ({ product, width, height, initialCartState = [], descr }
                 )}
             </Link>
                 <button className='bg-blue-400 hover:cursor-pointer' onClick={() => addTocart(product.id)}>add to cart</button>
+                {page=='cart' && (
+                    <button className='bg-red-500 hover:cursor-pointer ml-10'  onClick={()=>removeFromcart(product.id)}>remove from card</button>
+
+                )}
             </div>
 
 
