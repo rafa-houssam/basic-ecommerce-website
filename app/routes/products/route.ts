@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server"
-import { products } from "@/app/ProductData"
 import { connectToDB } from "../db"
 
 export async function GET(){

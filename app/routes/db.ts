@@ -25,4 +25,4 @@ cachedDb=client.db("mongodbVSCodePlaygroundDB")
     return {client,db:client.db("mongodbVSCodePlaygroundDB")}
  
 }
-    
+    // mongodb+srv://rafadev433:o647L2CQfAfDPwJc@cluster0.xf5e4li.mongodb.net/

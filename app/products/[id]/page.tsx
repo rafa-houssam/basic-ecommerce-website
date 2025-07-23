@@ -5,7 +5,8 @@ import ProductDetails from '@/app/components/Product'
 
 
 const ProductPage = async ({params}:{params:{id:string}}) => {
-    const response=await fetch("http://localhost:3000/routes/products/"+params.id)
+  const url="http://localhost:3000/routes/products/"+params.id
+    const response=await fetch(url)
     const product= await response.json()
 
   return (
