@@ -10,7 +10,7 @@ const ProductDetails = ({ product, width, height, descr }: { product: Product, w
         <>
            
 
-
+            
                 <Link key={product.id} href={`/products/${product.id}`} className='text-center  '>
                    {descr && (
                     <Image className='ml-90 m-2 mt-4 ' src={product.imageUrl} alt="Product image" width={width} height={height}></Image>)}

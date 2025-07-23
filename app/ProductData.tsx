@@ -1,4 +1,5 @@
 export interface Product {
+  _id: Key | null | undefined;
   id: string;
   imageUrl: string;
   name: string;

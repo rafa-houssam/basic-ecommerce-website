@@ -1,18 +1,13 @@
-'use client'
-import  { useEffect, useState } from 'react'
-import { products } from '../ProductData'
+
 import ProductsList from '../components/ProductsList'
+import ShoppingCart from './ShoppingCart'
 
  async function Cart(){
-    const [cartIds,setcartIds]=useState(['123','234'])
-    const carProduct=cartIds.map(id=>products.find(p=>id==p.id)!)
-    const response=await fetch("/api/hello")
-    const data=response.json()
-    console.log(data)
+     const response=await fetch('http://localhost:3000/routes/users/1/cart')
+     const cartProducts=await response.json()
   return (
     <>
-    <div>shopping cart</div>
-      <ProductsList Products={carProduct}/>
+      <ShoppingCart initialState={cartProducts.data}/>
 
     </>
   )
