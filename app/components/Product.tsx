@@ -1,47 +1,53 @@
 'use client'
-import  { useState } from 'react'
+import { useState } from 'react'
 import { Product } from '../ProductData'
 import Link from 'next/link'
 import Image from 'next/image'
+export const dynamic='force-dynamic';
 
 
-const ProductDetails = ({ product, width, height, initialCartState = [], descr,page="" }: { product: Product, width: number, height: number, descr: boolean, initialCartState?: Product[],page?:string }) => {
+
+const ProductDetails = ({ product, width, height, initialCartState = [], descr, page = "" }: { product: Product, width: number, height: number, descr: boolean, initialCartState?: Product[], page?: string }) => {
     const [cartProduct, setcartProducts] = useState(initialCartState)
 
     async function addTocart(productId: string) {
-        const response = await fetch("http://localhost:3000/routes/users/1/cart", {
+        const response = await fetch(process.env.NEXT_PUBLIC_URL + 'routes/users/1/cart', {
             method: "POST",
             body: JSON.stringify({ productId }),
             headers: { 'Content-Type': 'application/json', }
 
 
         })
-        let newCart = await response.json()
-        newCart = newCart.data
-        setcartProducts(newCart)
+    let newCart = await response.json()
+    newCart = newCart.data
+    setcartProducts(newCart)
 
 
-    }
-    async function removeFromcart(productId: string) {
-        const response = await fetch("http://localhost:3000/routes/users/1/cart", {
+}
+async function removeFromcart(productId: string) {
+    const baseUrl = process.env.NEXT_PUBLIC_URL ?? '';
+    const response = await fetch(baseUrl + 'routes/users/1/cart', {
             method: "DELETE",
-            body: JSON.stringify({ productId }),
-            headers: { 'Content-Type': 'application/json', }
+        body: JSON.stringify({ productId }),
+        headers: { 'Content-Type': 'application/json', }
 
 
         })
-        let newCart = await response.json()
-        newCart = newCart.data
-        setcartProducts(newCart)
+let newCart = await response.json()
+newCart = newCart.data
+setcartProducts(newCart)
 
 
     }
+function productIsInCart(productId: string) {
+    return cartProduct.some(cp => cp.id == productId)
+}
 
-    return (
-        <>
-       <div>
+return (
+    <>
+        <div>
 
-       
+
 
 
 
@@ -58,19 +64,19 @@ const ProductDetails = ({ product, width, height, initialCartState = [], descr,p
                         <p className=''>{product.description}</p></>
                 )}
             </Link>
-            {page!= 'cart' && (
-                 <button className='bg-blue-400 hover:cursor-pointer' onClick={(e) => {e.preventDefault();addTocart(product.id)}}>add to cart</button>
+            {page != 'cart' && !productIsInCart(product.id) && (
+                <button className='bg-blue-400 hover:cursor-pointer' onClick={(e) => { e.preventDefault(); addTocart(product.id) }}>add to cart</button>
             )}
-               
-                {page=='cart' && (
-                    <button className='bg-red-500 hover:cursor-pointer ml-10'  onClick={()=>removeFromcart(product.id)}>remove from card</button>
 
-                )}
-            </div>
+            {page == 'cart' && (
+                <button className='bg-red-500 hover:cursor-pointer ml-10' onClick={(e) => { e.preventDefault(); removeFromcart(product.id) }}>remove from card</button>
+
+            )}
+        </div>
 
 
-        </>
-    )
+    </>
+)
 }
 
 export default ProductDetails
